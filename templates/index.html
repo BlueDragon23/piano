@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Piano</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <link href="static/main.css" rel="stylesheet">
+</head>
+<body>
+<h1>Check out this Flask piano (with 8 notes (it's not a good piano))
+<div style="position: absolute; bottom: 0px;">
+{% for i in range(2, 10) %}
+    {% set pitchName = "{}{}".format(string.ascii_lowercase[i%7], (i-2)//7 + 5) %}
+    <button onclick={{ "document.getElementById('" + pitchName + "').play();" }} class="key">
+        {{ pitchName.upper() }}
+    </button>
+    <audio id={{ pitchName }}><source src={{ "static/{}.wav".format(pitchName) }}>No audio provided</audio>
+{% endfor %}
+</div>
+</body>
+</html>
