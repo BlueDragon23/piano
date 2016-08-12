@@ -12,28 +12,28 @@
         console.log(event);
         switch(event.key) {
             case "q":
-                document.getElementById("c5").play();
+                document.getElementById("C5").play();
                 break;
             case "w":
-                document.getElementById("d5").play();
+                document.getElementById("D5").play();
                 break;
             case "e":
-                document.getElementById("e5").play();
+                document.getElementById("E5").play();
                 break;
             case "r":
-                document.getElementById("f5").play();
+                document.getElementById("F5").play();
                 break;
             case "t":
-                document.getElementById("g5").play();
+                document.getElementById("G5").play();
                 break;
             case "y":
-                document.getElementById("a5").play();
+                document.getElementById("A5").play();
                 break;
             case "u":
-                document.getElementById("b5").play();
+                document.getElementById("B5").play();
                 break;
             case "i":
-                document.getElementById("c6").play();
+                document.getElementById("C6").play();
                 break;
             default:
                 console.log(event.key);
@@ -46,16 +46,20 @@
         audio.pause();
         audio.currentTime = 0;
         audio.play();
+        toggleButton(name + "Button");
+    }
+    function toggleButton(buttonId) {
+        console.log("Toggled " + buttonId);
     }
 </script>
 <h1>Check out this Flask piano (with 8 notes (it's not a good piano))</h1>
-<div style="position: absolute; bottom: 0px;">
+<div style="position: absolute; bottom: 0;">
 {% for i in range(2, 10) %}
-    {% set pitchName = "{}{}".format(string.ascii_lowercase[i%7], (i-2)//7 + 5) %}
-    <button onclick={{ "playNote('" + pitchName + "')" }} class="key">
+    {% set pitchName = "{}{}".format(string.ascii_uppercase[i%7], (i-2)//7 + 5) %}
+    <button onclick={{ "playNote('" + pitchName + "')" }} class="key" id={{ pitchName + "Button" }}>
         {{ pitchName.upper() }}
     </button>
-    <audio id={{ pitchName }}><source src={{ "static/{}.wav".format(pitchName) }}>No audio provided</audio>
+    <audio id={{ pitchName }} onended={{ "toggleButton('" + pitchName + "Button" +  "')"}}><source src={{ "static/{}.wav".format(pitchName) }}>No audio provided</audio>
 {% endfor %}
 </div>
 </body>
